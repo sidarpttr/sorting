@@ -218,4 +218,105 @@ public:
                 break;
         }
     }
+
+    ///
+    /// Split linked list L into L1 and L2.
+    /// New linked lists will con­tain the alter­nate nodes from the given linked list
+    ///
+    void alternateSplit(LList<T> l1, LList<T> l2)
+    {
+        Node<T> *p = first(), *a = l1.zeroth(), *b = l2.zeroth();
+        while (p)
+        {
+            l1.insert(p->element, a);
+            a = a->next;
+            p = p->next;
+            if (p != nullptr)
+            {
+                l2.insert(p->element, b);
+                b = b->next;
+                p = p->next;
+            }
+        }
+    }
+
+    int length() const
+    {
+        Node<T> *p = zeroth();
+        int c = 0;
+        while (p->next)
+        {
+            c++;
+            p = p->next;
+        }
+        return c;
+    }
+
+    void pad(int n)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            insert(0, zeroth());
+        }
+    }
+
+    void setPrevs()
+    {
+        Node<T> *p = first(), pr = nullptr;
+        while (p)
+        {
+            p->prev = pr;
+            pr = p;
+            p = p->next;
+        }
+    }
+
+    LList<T> add(LList<T> l1, LList<T> l2)
+    {
+        int l1Len = l1.length(), l2Len = l2.length();
+        if (l1Len > l2Len)
+            l2.pad(l1Len - l2Len);
+        if (l1Len < l2Len)
+            l1.pad(l2Len - l1Len);
+
+        l1.setPrevs();
+        l2.setPrevs();
+        int c = 0;
+        LList<T> R;
+        Node<T> *p = l1.first(), *q = l2.first();
+        while (p->next)
+            p = p->next;
+        while (q->next)
+            q = q->next;
+
+        while (p)
+        {
+            int v = p->element + q->element + c;
+            if (v < 10)
+            {
+                R.insert(v, R.zeroth());
+                c = 0;
+            }
+            else
+            {
+                R.insert(v % 10, R.zeroth());
+                c = 1;
+            }
+            p = p->prev;
+            q = q->prev;
+        }
+        if (c > 0)
+            R.insert(1, zeroth());
+
+        return R;
+    }
+
+    LList<T> operator+(const LList<T> &rhs)
+    {
+        return add(*this, rhs);
+    }
 };
+
+
+
+
