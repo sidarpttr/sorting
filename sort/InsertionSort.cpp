@@ -20,9 +20,12 @@ void InsertionSort(T arr[], int n)
 int main()
 {
 
-    int arr[] = {5, 132, 1, 24, 12, 31};
-    string arr2[] = {"sidar", "mert", "kemal", "celal"};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int arr[5];
+    for (int i = 0; i < 5; i++)
+    {
+        arr[i] = rand() % RAND_MAX;
+    }
+    int n = 5;
     for (auto i : arr)
         cout << i << " ";
 

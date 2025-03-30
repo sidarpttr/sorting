@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 template <class T>
@@ -26,6 +27,7 @@ void BubbleSort(T arr[], int n)
 int main()
 {
 
+    clock_t start = clock();
     int arr[] = {5, 132, 1, 24, 12, 31};
     string arr2[] = {"sidar", "mert", "kemal", "celal"};
     int n = sizeof(arr) / sizeof(arr[0]);
@@ -34,9 +36,15 @@ int main()
 
     cout << endl;
     BubbleSort(arr, n);
+
     for (auto i : arr)
-        cout << i << " ";
+        cout
+            << i << " ";
     cout << endl;
+
+    clock_t end = clock();
+    double time = double(end - start) / CLOCKS_PER_SEC;
+    cout << "gecen sure:\t" << time << endl;
 
     return 0;
 }
